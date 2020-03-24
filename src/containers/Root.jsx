@@ -6,7 +6,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 
 import rootReducer from '../reducers/apiReducers';
 import { loadState, saveState } from '../utils/storeUtils';
-import App from './App';
+import App from '../components/App';
 
 // For use with redux-devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -33,7 +32,7 @@ const styles = {
     },
 };
 
-function APINavigation({ classes, selectedApi, dispatch }) {
+function BottomNav({ classes, selectedApi, dispatch }) {
     const handleOnClick = (_event, newApi) => {
         dispatch(selectAPI(newApi));
     };
@@ -56,17 +55,11 @@ function APINavigation({ classes, selectedApi, dispatch }) {
     );
 }
 
-APINavigation.propTypes = {
+BottomNav.propTypes = {
     classes: PropTypes.object.isRequired,
     selectedApi: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
-    const { selectedApi } = state;
-    return {
-        selectedApi,
-    };
-}
 
-export default withStyles(styles)(connect(mapStateToProps)(APINavigation));
+export default withStyles(styles)(BottomNav);
