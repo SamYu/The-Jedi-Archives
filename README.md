@@ -1,4 +1,12 @@
-# Star Wars Stats
+# The Jedi Archives
+
+### [Live Demo](https://jediarchives.samyu.io/)
+
+A visual database of information from the Star Wars universe. All data is from [The Star Wars API](https://swapi.co/)
+
+Built with: JavaScript, React, Redux, chart.js, Material UI, axios
+
+![Screenshot of App](https://i.imgur.com/5MLPpz6.png)
 
 ### `npm start`
 
@@ -8,7 +16,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ### Mocking the API
 
