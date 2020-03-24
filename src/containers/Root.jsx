@@ -25,6 +25,9 @@ store.subscribe(() => {
 });
 
 const theme = createMuiTheme({
+    typography: {
+        fontFamily: 'Distant Galaxy',
+    },
     palette: {
         primary: {
             main: '#000',

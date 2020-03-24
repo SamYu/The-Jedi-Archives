@@ -110,8 +110,12 @@ export function getChartType(selectedApi, field) {
 }
 
 const defaultOptions = {
+    legend: {
+        display: false,
+    },
     maintainAspectRatio: false,
     responsive: true,
+    fontFamily: 'Anakin Mono',
 };
 
 export const getChartOptions = (labelText, componentType) => {
@@ -126,6 +130,8 @@ export const getChartOptions = (labelText, componentType) => {
                     scaleLabel: {
                         display: true,
                         labelString: labelText,
+                        fontSize: 15,
+                        fontFamily: 'Anakin Mono',
                     },
                 }],
                 xAxes: [{
@@ -133,11 +139,9 @@ export const getChartOptions = (labelText, componentType) => {
                         display: true,
                         labelString: 'Name',
                         fontSize: 15,
+                        fontFamily: 'Anakin Mono',
                     },
                 }],
-            },
-            legend: {
-                display: false,
             },
             ...defaultOptions,
         };
@@ -147,9 +151,7 @@ export const getChartOptions = (labelText, componentType) => {
                 display: true,
                 text: labelText,
                 fontSize: '24',
-            },
-            legend: {
-                display: true,
+                fontFamily: 'Anakin Mono',
             },
             ...defaultOptions,
         };

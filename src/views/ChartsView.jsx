@@ -36,6 +36,9 @@ const styles = {
     loadingIndicator: {
         position: 'fixed',
     },
+    selectMenu: {
+        fontFamily: 'Anakin Mono',
+    },
 };
 
 function ChartsView({
@@ -82,10 +85,11 @@ function ChartsView({
                 <Select
                     value={chartKey}
                     onChange={handleChartKeyChange}
+                    className={classes.selectMenu}
                 >
                     {selectedApi in apiSchemas
                         && Object.keys(apiSchemas[selectedApi]).map((api) => (
-                            <MenuItem key={api} value={api}>
+                            <MenuItem key={api} value={api} className={classes.selectMenu}>
                                 {apiSchemas[selectedApi][api].displayName}
                             </MenuItem>
                         ))}
@@ -96,6 +100,7 @@ function ChartsView({
 }
 
 ChartsView.propTypes = {
+    classes: PropTypes.object.isRequired,
     selectedApi: PropTypes.string.isRequired,
     apiData: PropTypes.arrayOf(PropTypes.object).isRequired,
     isFetching: PropTypes.bool.isRequired,

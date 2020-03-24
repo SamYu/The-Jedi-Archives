@@ -29,6 +29,7 @@ const styles = {
     },
     navIcon: {
         overflow: 'visible',
+        paddingBottom: 10,
     },
 };
 

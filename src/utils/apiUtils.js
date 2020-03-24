@@ -164,7 +164,7 @@ const species = {
 
 const vehicles = {
     // model: {
-    //     displayName: 'Number of films appeared in',
+    //     displayName: 'Model',
     //     type: RELATIONAL,
     // },
     cost_in_credits: {
@@ -215,7 +215,7 @@ const vehicles = {
 
 const starships = {
     // model: {
-    //     displayName: 'Number of films appeared in',
+    //     displayName: 'Model',
     //     type: RELATIONAL,
     // },
     MGLT: {
