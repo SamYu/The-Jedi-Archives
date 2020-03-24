@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { REQUEST_FROM_API, RECEIVE_FROM_API, SELECT_API } from '../actions/apiActions';
 
-function selectedApi(state = 'vehicles', action) {
+function selectedApi(state = 'people', action) {
     switch (action.type) {
     case SELECT_API:
         return action.apiName;

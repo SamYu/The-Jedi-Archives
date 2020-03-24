@@ -1,51 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes, { object } from 'prop-types';
 import { connect } from 'react-redux';
-import { Bar } from 'react-chartjs-2';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-
-import { fetchFromApiIfNeeded, selectAPI } from '../actions/apiActions';
-import { serializeChartData } from '../utils/chartUtils';
+import { fetchFromApiIfNeeded } from '../actions/apiActions';
+import { serializeChartData, getChartType, chartOptions } from '../utils/chartUtils';
+import { apiSchemas } from '../utils/apiUtils';
 
 function ChartsView({
     selectedApi, apiData, isFetching, dispatch,
 }) {
     const [chartData, updateChartData] = useState({});
-    const [apiName, updateApiName] = useState(selectedApi);
+    const [chartKey, updateChartKey] = useState(Object.keys(apiSchemas[selectedApi])[0]);
+
     useEffect(() => {
         dispatch(fetchFromApiIfNeeded(selectedApi));
     });
-    useEffect(() => {
-        const serializedData = serializeChartData(apiData, 'length');
-        updateChartData(serializedData);
-    }, [apiData]);
 
-    const handleApiChange = (event) => {
-        const newApiName = event.target.value;
-        updateApiName(newApiName);
-        dispatch(selectAPI(newApiName));
+    useEffect(() => {
+        const serializedData = serializeChartData(selectedApi, chartKey, apiData);
+        updateChartData(serializedData);
+    }, [apiData, chartKey, selectedApi]);
+
+    useEffect(() => {
+        updateChartKey(Object.keys(apiSchemas[selectedApi])[0]);
+    }, [selectedApi]);
+
+    const handleChartKeyChange = (event) => {
+        const newChartKey = event.target.value;
+        updateChartKey(newChartKey);
     };
+    const ChartType = getChartType(selectedApi, chartKey);
+    if (isFetching) return <CircularProgress />;
     return (
-        <div>
+        <div style={{ marginTop: 60 }}>
             <div>
                 <Select
-                    value={apiName}
-                    onChange={handleApiChange}
+                    value={chartKey}
+                    onChange={handleChartKeyChange}
                 >
-                    <MenuItem value="people">People</MenuItem>
-                    <MenuItem value="planets">Planets</MenuItem>
-                    <MenuItem value="species">Species</MenuItem>
-                    <MenuItem value="films">Films</MenuItem>
-                    <MenuItem value="vehicles">Vehicles</MenuItem>
-                    <MenuItem value="starships">Starships</MenuItem>
+                    {selectedApi in apiSchemas
+                        && Object.keys(apiSchemas[selectedApi]).map((api) => (
+                            <MenuItem key={api} value={api}>
+                                {apiSchemas[selectedApi][api].displayName}
+                            </MenuItem>
+                        ))}
                 </Select>
             </div>
-            {isFetching
-                ? <CircularProgress />
-                : <Bar data={chartData} />}
+            {ChartType && (
+                <ChartType
+                    data={chartData}
+                    options={chartOptions(
+                        apiSchemas[selectedApi][chartKey].displayName,
+                    )[ChartType.name]}
+                />
+            )}
         </div>
     );
 }
