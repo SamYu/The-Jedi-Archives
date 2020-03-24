@@ -4,7 +4,9 @@
 
 A visual database of information from the Star Wars universe. All data is from [The Star Wars API](https://swapi.co/)
 
-Built with: JavaScript, React, Redux, chart.js, Material UI, axios
+- Built with JavaScript, React, Redux, chart.js, Material UI and axios.
+
+- Deployed on AWS S3 as a static site with Cloudfront as a CDN.
 
 ![Screenshot of App](https://i.imgur.com/5MLPpz6.png)
 
