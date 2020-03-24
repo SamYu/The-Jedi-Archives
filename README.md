@@ -1,5 +1,7 @@
 # The Jedi Archives
 
+### [Live Demo](https://jediarchives.samyu.io/)
+
 A visual database of information from the Star Wars universe. All data is from [The Star Wars API](https://swapi.co/)
 
 Built with: JavaScript, React, Redux, chart.js, Material UI, axios
