@@ -12,6 +12,14 @@ const styles = {
     },
     title: {
         flexGrow: 1,
+        fontSize: '1.25rem',
+    },
+    subtitle: {
+        fontFamily: 'Anakin Mono',
+        fontSize: 16,
+        '@media (max-width: 768px)': {
+            fontSize: 8,
+        },
     },
 };
 
@@ -20,8 +28,11 @@ function NavBar({ classes }) {
         <div className={classes.root}>
             <AppBar position="fixed">
                 <Toolbar>
-                    <Typography className={classes.title} variant="h6">
+                    <Typography className={classes.title} variant="h1">
                         The Jedi Archives
+                    </Typography>
+                    <Typography className={classes.subtitle} variant="h2">
+                        Built by Sam Yu
                     </Typography>
                 </Toolbar>
             </AppBar>

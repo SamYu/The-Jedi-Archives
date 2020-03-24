@@ -38,6 +38,12 @@ const styles = {
     },
     selectMenu: {
         fontFamily: 'Anakin Mono',
+        whiteSpace: 'normal',
+    },
+    selectMenuText: {
+        fontFamily: 'Anakin Mono',
+        whiteSpace: 'normal',
+        paddingRight: 20,
     },
 };
 
@@ -78,7 +84,7 @@ function ChartsView({
                             )}
                         />
                     )
-                    : <CircularProgress className={classes.loadingIndicator}/>}
+                    : <CircularProgress className={classes.loadingIndicator} />}
             </Paper>
             <div className={classes.categorySelectWrapper}>
                 <Typography variant="h6">Selected Category</Typography>
@@ -86,6 +92,9 @@ function ChartsView({
                     value={chartKey}
                     onChange={handleChartKeyChange}
                     className={classes.selectMenu}
+                    SelectDisplayProps={{
+                        className: classes.selectMenuText,
+                    }}
                 >
                     {selectedApi in apiSchemas
                         && Object.keys(apiSchemas[selectedApi]).map((api) => (
