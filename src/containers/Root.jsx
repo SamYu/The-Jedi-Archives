@@ -2,6 +2,7 @@ import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 
 import rootReducer from '../reducers/apiReducers';
 import { loadState, saveState } from '../utils/storeUtils';
@@ -23,10 +24,20 @@ store.subscribe(() => {
     saveState(store.getState());
 });
 
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#000',
+        },
+    },
+});
+
 export default function Root() {
     return (
-        <Provider store={store}>
-            <App />
-        </Provider>
+        <MuiThemeProvider theme={theme}>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </MuiThemeProvider>
     );
 }

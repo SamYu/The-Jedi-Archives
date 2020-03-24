@@ -1,16 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 import { fetchFromApiIfNeeded } from '../actions/apiActions';
-import { serializeChartData, getChartType, chartOptions } from '../utils/chartUtils';
+import { serializeChartData, getChartType, getChartOptions } from '../utils/chartUtils';
 import { apiSchemas } from '../utils/apiUtils';
 
+const styles = {
+    chartsView: {
+        marginTop: 60,
+    },
+    chartWrapper: {
+        height: '55vh',
+        padding: 50,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '@media (max-width: 768px)': {
+            padding: 20,
+        },
+    },
+    categorySelectWrapper: {
+        textAlign: 'center',
+        margin: 50,
+        '@media (max-width: 1024px)': {
+            margin: 20,
+        },
+    },
+    loadingIndicator: {
+        position: 'fixed',
+    },
+};
+
 function ChartsView({
-    selectedApi, apiData, isFetching, dispatch,
+    classes, selectedApi, apiData, isFetching, dispatch,
 }) {
     const [chartData, updateChartData] = useState({});
     const [chartKey, updateChartKey] = useState(Object.keys(apiSchemas[selectedApi])[0]);
@@ -33,10 +62,23 @@ function ChartsView({
         updateChartKey(newChartKey);
     };
     const ChartType = getChartType(selectedApi, chartKey);
-    if (isFetching) return <CircularProgress />;
     return (
-        <div style={{ marginTop: 60 }}>
-            <div>
+        <div className={classes.chartsView}>
+            <Paper className={classes.chartWrapper}>
+                {(!isFetching && ChartType)
+                    ? (
+                        <ChartType
+                            data={chartData}
+                            options={getChartOptions(
+                                apiSchemas[selectedApi][chartKey].displayName,
+                                ChartType,
+                            )}
+                        />
+                    )
+                    : <CircularProgress className={classes.loadingIndicator}/>}
+            </Paper>
+            <div className={classes.categorySelectWrapper}>
+                <Typography variant="h6">Selected Category</Typography>
                 <Select
                     value={chartKey}
                     onChange={handleChartKeyChange}
@@ -49,21 +91,13 @@ function ChartsView({
                         ))}
                 </Select>
             </div>
-            {ChartType && (
-                <ChartType
-                    data={chartData}
-                    options={chartOptions(
-                        apiSchemas[selectedApi][chartKey].displayName,
-                    )[ChartType.name]}
-                />
-            )}
         </div>
     );
 }
 
 ChartsView.propTypes = {
     selectedApi: PropTypes.string.isRequired,
-    apiData: PropTypes.arrayOf(object).isRequired,
+    apiData: PropTypes.arrayOf(PropTypes.object).isRequired,
     isFetching: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
 };
@@ -79,4 +113,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(ChartsView);
+export default withStyles(styles)(connect(mapStateToProps)(ChartsView));

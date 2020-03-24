@@ -109,28 +109,51 @@ export function getChartType(selectedApi, field) {
     }
 }
 
-const defaultOptions = (titleText) => ({
-    title: {
-        display: true,
-        text: titleText,
-    },
-    legend: {
-        display: false,
-    },
-});
+const defaultOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+};
 
-export const chartOptions = (titleText) => ({
-    Bar: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    min: 0,
-                },
-            }],
-        },
-        ...defaultOptions(titleText),
-    },
-    Doughnut: {
-        ...defaultOptions(titleText),
-    },
-});
+export const getChartOptions = (labelText, componentType) => {
+    switch (componentType) {
+    case Bar:
+        return {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: labelText,
+                    },
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Name',
+                        fontSize: 15,
+                    },
+                }],
+            },
+            legend: {
+                display: false,
+            },
+            ...defaultOptions,
+        };
+    case Doughnut:
+        return {
+            title: {
+                display: true,
+                text: labelText,
+                fontSize: '24',
+            },
+            legend: {
+                display: true,
+            },
+            ...defaultOptions,
+        };
+    default:
+        return {};
+    }
+};
