@@ -13,7 +13,7 @@ import { serializeChartData, getChartType, getChartOptions } from '../utils/char
 import { apiSchemas } from '../utils/apiUtils';
 
 const styles = {
-    chartsView: {
+    chartsComponent: {
         marginTop: 60,
     },
     chartWrapper: {
@@ -47,7 +47,7 @@ const styles = {
     },
 };
 
-function ChartsView({
+function Chart({
     classes, selectedApi, apiData, isFetching, dispatch,
 }) {
     const [chartData, updateChartData] = useState({});
@@ -72,7 +72,7 @@ function ChartsView({
     };
     const ChartType = getChartType(selectedApi, chartKey);
     return (
-        <div className={classes.chartsView}>
+        <div className={classes.chartsComponent}>
             <Paper className={classes.chartWrapper}>
                 {(!isFetching && ChartType)
                     ? (
@@ -108,7 +108,7 @@ function ChartsView({
     );
 }
 
-ChartsView.propTypes = {
+Chart.propTypes = {
     classes: PropTypes.object.isRequired,
     selectedApi: PropTypes.string.isRequired,
     apiData: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -127,4 +127,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(ChartsView));
+export default withStyles(styles)(connect(mapStateToProps)(Chart));

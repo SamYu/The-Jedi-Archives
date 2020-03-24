@@ -1,5 +1,5 @@
 import React from 'react';
-import ChartsView from '../views/ChartsView';
+import Chart from '../components/Chart';
 import Header from '../components/Header';
 import BottomNav from '../components/BottomNav';
 
@@ -8,7 +8,7 @@ function App() {
     return (
         <div id="app">
             <Header />
-            <ChartsView />
+            <Chart />
             <BottomNav />
         </div>
     );
